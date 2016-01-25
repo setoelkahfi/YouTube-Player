@@ -1,17 +1,29 @@
 package id.web.setoelkahfi.youtubeplayer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private Button buttonSingle;
+    private Button buttonStandalone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        buttonSingle = (Button) findViewById(R.id.buttonPlaySingle);
+        buttonStandalone = (Button) findViewById(R.id.buttonStandalone);
+
+        buttonSingle.setOnClickListener(this);
+        buttonStandalone.setOnClickListener(this);
     }
 
 
@@ -35,5 +47,24 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = null;
+
+        switch (v.getId()) {
+            case R.id.buttonPlaySingle:
+                intent = new Intent(MainActivity.this, YouTubeActivity.class);
+                break;
+            case R.id.buttonStandalone:
+                intent = new Intent(MainActivity.this, StandaloneActivity.class);
+                break;
+            default:
+        }
+
+        if (intent != null) {
+            startActivity(intent);
+        }
     }
 }
